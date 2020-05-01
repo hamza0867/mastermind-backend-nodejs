@@ -11,8 +11,8 @@ app.use(morgan("tiny"));
 
 app.use(express.json());
 
-const server = app.listen(4000, () => {
-  console.log("listening on port 4000");
+const server = app.listen(process.env.PORT || 4000, () => {
+  console.log(`listening on port ${process.env.PORT}`);
 });
 
 const io = socket(server);
