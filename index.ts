@@ -22,6 +22,8 @@ const isAvailable = (room: Room): boolean =>
 
 const rooms: Array<Room> = [];
 
+app.options("/room", cors());
+
 app.post("/room", (req: express.Request, res: express.Response) => {
   const user = req.body.name;
   console.log("user", req.body);
@@ -57,6 +59,8 @@ app.post("/room", (req: express.Request, res: express.Response) => {
   console.log("rooms", rooms);
   res.json(room);
 });
+
+app.options("/room/:roomNumber", cors());
 
 app.post("/room/:roomNumber", (req, res) => {
   const roomNumber = Number.parseInt(req.params.roomNumber);
