@@ -41,9 +41,13 @@ app.post("/room", (req: express.Request, res: express.Response) => {
         socket.broadcast.emit("readyAcknowledged", data);
         console.log("readyAcknowledged", data);
       });
-      socket.on("attempt", (data) => {
-        socket.broadcast.emit("attempt", data);
-        console.log("attempt", data);
+      socket.on("guess", (data) => {
+        socket.broadcast.emit("guess", data);
+        console.log("guess", data);
+      });
+      socket.on("attemptResult", (data) => {
+        socket.broadcast.emit("attemptResult", data);
+        console.log("attemptResult", data);
       });
     });
   } else {
