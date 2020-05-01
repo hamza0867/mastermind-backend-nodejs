@@ -5,10 +5,9 @@ import cors from "cors";
 const app = express();
 
 app.use(cors());
+app.options("*", cors());
 
 app.use(express.json());
-
-app.options("*", cors());
 
 const server = app.listen(4000, () => {
   console.log("listening on port 4000");
@@ -25,7 +24,7 @@ const isAvailable = (room: Room): boolean =>
 
 const rooms: Array<Room> = [];
 
-app.post("/room", cors(), (req: express.Request, res: express.Response) => {
+app.post("/room", (req: express.Request, res: express.Response) => {
   const user = req.body.name;
   console.log("user", req.body);
   let room = rooms.find((room) => isAvailable(room));
@@ -61,7 +60,7 @@ app.post("/room", cors(), (req: express.Request, res: express.Response) => {
   res.json(room);
 });
 
-app.post("/room/:roomNumber", cors(), (req, res) => {
+app.post("/room/:roomNumber", (req, res) => {
   const roomNumber = Number.parseInt(req.params.roomNumber);
   const user = req.body.name;
   if (Number.isNaN(roomNumber)) {
