@@ -4,18 +4,11 @@ import cors from "cors";
 
 const app = express();
 
-//app.use(cors());
+app.use(cors());
+
 app.use(express.json());
 
-app.use(function (req, res, next) {
-  console.log("origin", req.headers.origin);
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+app.options("*", cors());
 
 const server = app.listen(4000, () => {
   console.log("listening on port 4000");
