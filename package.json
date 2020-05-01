@@ -5,6 +5,10 @@
   "main": "index.js",
   "author": "hamza0867",
   "license": "MIT",
+  "engines": {
+    "node": "12.13.0",
+    "yarn": "1.x"
+  },
   "scripts": {
     "ts:watch": "tsc -w",
     "build": "tsc",
