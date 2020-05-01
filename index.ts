@@ -4,8 +4,18 @@ import cors from "cors";
 
 const app = express();
 
-app.use(cors());
+//app.use(cors());
 app.use(express.json());
+
+app.use(function (req, res, next) {
+  console.log("origin", req.headers.origin);
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 
 const server = app.listen(4000, () => {
   console.log("listening on port 4000");
@@ -21,8 +31,6 @@ const isAvailable = (room: Room): boolean =>
   room.user_2 === undefined && room.user_1 === undefined;
 
 const rooms: Array<Room> = [];
-
-app.options("/room", cors());
 
 app.post("/room", (req: express.Request, res: express.Response) => {
   const user = req.body.name;
@@ -59,8 +67,6 @@ app.post("/room", (req: express.Request, res: express.Response) => {
   console.log("rooms", rooms);
   res.json(room);
 });
-
-app.options("/room/:roomNumber", cors());
 
 app.post("/room/:roomNumber", (req, res) => {
   const roomNumber = Number.parseInt(req.params.roomNumber);
