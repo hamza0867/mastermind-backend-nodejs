@@ -1,11 +1,13 @@
 import express from "express";
 import socket from "socket.io";
 import cors from "cors";
+import morgan from "morgan";
 
 const app = express();
 
 app.use(cors());
 app.options("*", cors());
+app.use(morgan("tiny"));
 
 app.use(express.json());
 
