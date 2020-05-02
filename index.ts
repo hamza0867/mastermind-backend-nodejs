@@ -11,8 +11,10 @@ app.use(morgan("tiny"));
 
 app.use(express.json());
 
-const server = app.listen(process.env.PORT || 4000, () => {
-  console.log(`listening on port ${process.env.PORT}`);
+const port = process.env.PORT || 4000;
+
+const server = app.listen(port, () => {
+  console.log(`listening on port ${port}`);
 });
 
 const io = socket(server);
@@ -52,6 +54,10 @@ app.post("/room", (req: express.Request, res: express.Response) => {
       socket.on("attemptResult", (data) => {
         socket.broadcast.emit("attemptResult", data);
         console.log("attemptResult", data);
+      });
+      socket.on("restartGame", (data) => {
+        socket.broadcast.emit("restartGame", data);
+        console.log("restartGame", data);
       });
     });
   } else {
