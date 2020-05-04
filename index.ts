@@ -74,13 +74,13 @@ app.post("/room/:roomNumber", (req, res) => {
   if (Number.isNaN(roomNumber)) {
     res
       .status(400)
-      .json("given roomNumber was not a number: " + req.params.roomNumber);
+      .json("The given room number was not a number: " + req.params.roomNumber);
   } else {
     const room = rooms.find((room) => room.number === roomNumber);
     if (!room) {
       res
         .status(404)
-        .json("the given roomNumber does not exsit: " + req.params.roomNumber);
+        .json("The given room number does not exsit: " + req.params.roomNumber);
     } else {
       room.user_2 = user;
       res.status(200).json(room);
